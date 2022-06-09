@@ -1,1 +1,0 @@
-oh-my-posh init pwsh --config (Get-Item "..\oh-my-posh\maiksch.omp.json").FullName | Invoke-Expression

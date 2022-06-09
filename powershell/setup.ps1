@@ -1,4 +1,6 @@
-winget install oh-my-posh
+# winget install oh-my-posh
 
-New-Item -Path ~\Documents\PowerShell\Microsoft.PowerShell_profile.ps1 -ItemType SymbolicLink -Value (Get-Item ".\Microsoft.PowerShell_profile.ps1").FullName 
-
+# Create profile
+$ProfilePath = (Get-Item "./profile.ps1").FullName
+echo $Profile
+echo ". $ProfilePath" >> $Profile
