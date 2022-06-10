@@ -3,6 +3,10 @@
 # Fix mouse cursor
 xsetroot -cursor_name left_ptr
 
+# Set resolution
+~/.screenlayout/default.sh
+
+# Set background image
 feh --bg-scale ~/Wallpapers/house.jpg &
 
 killall -q polybar

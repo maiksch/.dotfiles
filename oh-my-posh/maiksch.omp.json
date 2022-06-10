@@ -7,18 +7,6 @@
         {
           "foreground": "#45F1C2",
           "style": "plain",
-          "template": "{{.Icon}}",
-          "type": "os"
-        },
-        {
-          "foreground": "#45F1C2",
-          "style": "plain",
-          "template": " {{ .UserName }}",
-          "type": "session"
-        },
-        {
-          "foreground": "#45F1C2",
-          "style": "plain",
           "template": "(\uF0E7)",
           "type": "root"
         },
@@ -35,7 +23,7 @@
             "style": "folder"
           },
           "style": "plain",
-          "template": " {{ .Path }}",
+          "template": "{{ .Path }}",
           "type": "path"
         },
         {
