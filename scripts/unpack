@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if [[ $1 == "" ]]; then
+	echo "Please provide something to unpack"
+	exit 1
+fi
+
+if [[ $1 != *"tar.gz" ]]; then
+	echo "This is not a tarball"
+	exit 1
+fi
+
+if [[ $1 == "http"* ]]; then
+	wget -qO- $1 | tar xz
+	exit 0
+fi
+
+tar xzf $1
+exit 0
