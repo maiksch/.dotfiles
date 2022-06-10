@@ -7,7 +7,7 @@ xsetroot -cursor_name left_ptr
 ~/.screenlayout/default.sh
 
 # Set background image
-feh --bg-scale ~/Wallpapers/house.jpg &
+feh --bg-scale ~/wallpaper.jpg &
 
 killall -q polybar
 # Wait until the processes have been shut down
