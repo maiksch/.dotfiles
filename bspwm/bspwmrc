@@ -3,6 +3,9 @@
 # Fix mouse cursor
 xsetroot -cursor_name left_ptr
 
+# Fix natural scrolling
+xinput set-prop "bcm5974" "libinput Natural Scrolling Enabled" 1
+
 # Set resolution
 ~/.screenlayout/default.sh
 
