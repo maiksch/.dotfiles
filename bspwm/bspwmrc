@@ -39,9 +39,9 @@ if xrandr --verbose | grep -q 'HDMI-2 connected'; then
 
 	PRIMARY=HDMI-2 polybar primary &
 else
-	~/.screenlayout/default.sh
+#	~/.screenlayout/default.sh
 	polybar primary &
-	bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 0
+	bspc monitor -d 1 2 3 4 5 6 7 8 9 0
 fi
 
 bspc config top_padding	  	 0
