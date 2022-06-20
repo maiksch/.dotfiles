@@ -5,7 +5,7 @@ xsetroot -cursor_name left_ptr
 
 
 # Fix natural scrolling
-xinput set-prop "bcm5974" "libinput Natural Scrolling Enabled" 1
+#xinput set-prop "bcm5974" "libinput Natural Scrolling Enabled" 1
 
 
 # Set background image
@@ -22,27 +22,8 @@ killall -q polybar
 # Wait until the processes have been shut down
 while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
 
-
-# Monitor setup
-if xrandr --verbose | grep -q 'HDMI-2 connected'; then
-#if polybar -m | grep -q 'HDMI-2'; then
-	~/.screenlayout/big-monitor.sh
-
-	if xrandr --verbose | grep -q 'eDP-1 connected'; then
-	#if polybar -m | grep -q 'eDP-1'; then
-		bspc monitor HDMI-2 -d 1 2 3 4 5
-		bspc monitor eDP-1 -d 6 7 8 9 0
-		SECONDARY=eDP-1 polybar secondary &
-	else 
-		bspc monitor HDMI-2 -d 1 2 3 4 5 6 7 8 9 0
-	fi
-
-	PRIMARY=HDMI-2 polybar primary &
-else
-#	~/.screenlayout/default.sh
-	polybar primary &
-	bspc monitor -d 1 2 3 4 5 6 7 8 9 0
-fi
+polybar primary &
+bspc monitor -d 1 2 3 4 5 6 7 8 9 0
 
 bspc config top_padding	  	 0
 bspc config border_width         0
