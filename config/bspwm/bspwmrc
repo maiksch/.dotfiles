@@ -5,7 +5,7 @@ xsetroot -cursor_name left_ptr
 
 
 # Fix natural scrolling
-#xinput set-prop "bcm5974" "libinput Natural Scrolling Enabled" 1
+xinput set-prop "bcm5974" "libinput Natural Scrolling Enabled" 1
 
 
 # Set background image
