@@ -1,29 +1,35 @@
+#! /usr/bin/env bash
+
 #
 # wm independent hotkeys
 #
 
 # terminal emulator
-super + Return
-	kitty	
+super + t
+	kitty
+
+# browser
+super + b
+	brave-browser
 
 # program launcher
 super + @space 
 	rofi -show drun	
 
-# make sxhkd reload its configuration files:
-#super + Escape
-#	pkill -USR1 -x sxhkd
+super + shift + @space
+	rofi -show run
 
 # monitor brightness
 XF86MonBrightness{Up,Down}
-	xbacklight -{inc,dec} 10
+	brightnessctl -c backlight set {+10%,10%-}
 
 # volume
 XF86Audio{RaiseVolume,LowerVolume,Mute}
 	amixer set Master {5%+,5%-,toggle}
 
 # keyboard brightness
-#XF86KbdBrightness{Up,Down}
+XF86KbdBrightness{Up,Down}
+	brightnessctl -d 'smc::kbd_backlight' set {+10%,10%-}
 
 #
 # bspwm hotkeys
