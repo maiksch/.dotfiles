@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 
 locations=$(find ~ ~/personal ~/work -mindepth 1 -maxdepth 1 -type d)
-session=$(echo "$locations" | rofi -dmenu) # use rofi to show all possible locations
-#session=$(find ~ ~/personal ~/work -mindepth 1 -maxdepth 1 -type d | fzf) # use fzf to show all possible locations
+#session=$(echo "$locations" | rofi -dmenu) # use rofi to show all possible locations
+session=$(echo "$locations" | fzf) # use fzf to show all possible locations
 session_name=$(basename "$session" | tr . _) # remove file endings. remove dir path. replace . with _
 
 if ! tmux has-session -t "$session_name" &> /dev/null; then
