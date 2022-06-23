@@ -1,9 +1,14 @@
 #! /usr/bin/env bash
 
-locations=$(find ~ ~/personal ~/work -mindepth 1 -maxdepth 1 -type d)
-#session=$(echo "$locations" | rofi -dmenu) # use rofi to show all possible locations
-session=$(echo "$locations" | fzf) # use fzf to show all possible locations
-session_name=$(basename "$session" | tr . _) # remove file endings. remove dir path. replace . with _
+if [ -z $1 ]; then
+	#session=$(echo "$locations" | rofi -dmenu) # use rofi to show all possible locations
+	locations=$(find ~ ~/personal ~/work -mindepth 1 -maxdepth 1 -type d)
+	session=$(echo "$locations" | fzf) # use fzf to show all possible locations
+	session_name=$(basename "$session" | tr . _) # remove file endings. remove dir path. replace . with _
+else
+	session=$(find ~ ~/personal ~/work -mindepth 1 -maxdepth 1 -type d -name $1)
+	session_name=$1
+fi
 
 if ! tmux has-session -t "$session_name" &> /dev/null; then
 	tmux new-session -s "$session_name" -c "$session" -d

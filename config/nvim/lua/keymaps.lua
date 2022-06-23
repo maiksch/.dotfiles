@@ -15,6 +15,11 @@ vnoremap = bind("v")
 xnoremap = bind("x")
 inoremap = bind("i")
 
--- Telescope 
-nnoremap("<leader>pf", require('telescope.builtin').find_files)
+-- Telescope
+nnoremap("<leader>pf", function() 
+	require('telescope.builtin').find_files({ hidden = true })
+end)
 nnoremap("<leader>ps", require('telescope.builtin').live_grep)
+
+-- Custom
+nnoremap("<leader>c", "<cmd>!xclip -selection clipboard -i %<CR>")

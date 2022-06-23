@@ -13,5 +13,8 @@ vim.opt.scrolloff = 8 -- 8 Zeilen vor Anfang und Ende der Datei scrollen
 vim.opt.signcolumn = "yes" -- Blende links von den Zeilennummern eine weiter Spalte in
 vim.opt.colorcolumn = "80" -- Blende eine Spalte bei 80 Zeichen ein
 vim.opt.completeopt = "menu,menuone,noselect"
-
+vim.opt.termguicolors = true
+vim.opt.background = "dark"
+vim.cmd [[hi Normal guibg=none]]
 vim.g.mapleader = " "
+
