@@ -5,6 +5,9 @@ then
 fi
 export PATH
 
+# Aliases
+alias vim=nvim
+
 # Theme
 ZSH_THEME="maiksch"
 

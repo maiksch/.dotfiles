@@ -17,7 +17,7 @@ inoremap = bind("i")
 
 -- Telescope
 nnoremap("<leader>pf", function() 
-	require('telescope.builtin').find_files({ hidden = true })
+	require('telescope.builtin').git_files({ hidden = true })
 end)
 nnoremap("<leader>ps", require('telescope.builtin').live_grep)
 
