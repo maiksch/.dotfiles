@@ -1,41 +1,40 @@
 require("packer").startup(function()
   -- Packer can manage itself
-  use "wbthomason/packer.nvim"
+  use("wbthomason/packer.nvim")
 
   -- Themes
-  use 'folke/tokyonight.nvim'
-  use "andersevenrud/nordic.nvim"
+  use("folke/tokyonight.nvim")
+  use("andersevenrud/nordic.nvim")
 
   --  LSP
-  use {
+  use({
   	"williamboman/nvim-lsp-installer",
   	"neovim/nvim-lspconfig",
-  }
+  })
 
   -- Autocompletion
-  use {
+  use({
 	"hrsh7th/cmp-nvim-lsp",
 	"hrsh7th/cmp-buffer",
 	"hrsh7th/cmp-path",
 	"hrsh7th/cmp-cmdline",
 	"hrsh7th/nvim-cmp",
-
 	"L3MON4D3/LuaSnip",
 	"saadparwaiz1/cmp_luasnip",
-  }
+  })
 
-  use "nvim-treesitter/nvim-treesitter"
+  use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
 
   --  Telescope
-  use {
+  use({
   	"nvim-telescope/telescope.nvim",
 	requires = { {"nvim-lua/plenary.nvim"} }
-  }
+  })
 end)
 
 -- Configure colorscheme
-require('nordic').colorscheme({
-    underline_option = 'none',
+require("nordic").colorscheme({
+    underline_option = "none",
     italic = true,
     italic_comments = false,
     minimal_mode = false,
@@ -47,17 +46,25 @@ require("nvim-lsp-installer").setup{
 	automatic_installation = true	
 }
 
--- Configure CMP
+-- Configure Syntax Hightlighting
+require("nvim-treesitter.configs").setup({
+	ensure_insatlled = "maintainted",
+	sync_install = false,
+	additional_vim_regex_highlighting = false,
+	ignore_install = { },
+	highlight = {
+		enable = true,
+		diable = { },
+	},
+})
+
+-- Configure CMP (autocompletion)
 local cmp = require("cmp")
 cmp.setup({
     snippet = {
       expand = function(args)
         require("luasnip").lsp_expand(args.body)
       end,
-    },
-    window = {
-      -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -69,7 +76,6 @@ cmp.setup({
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "luasnip" },
-    }, {
       { name = "buffer" },
     })
   })

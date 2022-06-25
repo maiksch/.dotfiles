@@ -15,6 +15,6 @@ vim.opt.colorcolumn = "80" -- Blende eine Spalte bei 80 Zeichen ein
 vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
-vim.cmd [[hi Normal guibg=none]]
-vim.g.mapleader = " "
+vim.cmd [[hi Normal ctermbg=none guibg=none]] -- Transparenter Hintergrund
+vim.g.mapleader = " " -- Leerzeichen als Leader verwenden
 

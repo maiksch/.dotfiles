@@ -17,9 +17,16 @@ inoremap = bind("i")
 
 -- Telescope
 nnoremap("<leader>pf", function() 
-	require('telescope.builtin').git_files({ hidden = true })
+	require("telescope.builtin").find_files({ hidden = true, file_ignore_patterns = {
+		".elixir_ls",
+		"deps",
+		"_build",
+		"node_modules",
+		".git"
+	}})
 end)
-nnoremap("<leader>ps", require('telescope.builtin').live_grep)
+nnoremap("<C-p>", require("telescope.builtin").git_files)
+nnoremap("<leader>ps", require("telescope.builtin").live_grep)
 
 -- Custom
-nnoremap("<leader>c", "<cmd>!xclip -selection clipboard -i %<CR>")
+nnoremap("<leader>c", "<cmd>!xclip -selection clipboard -i %<CR>") -- Write content of current file into clipboard
