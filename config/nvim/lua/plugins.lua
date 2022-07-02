@@ -39,14 +39,7 @@ end)
 require("plugins/treesitter")
 require("plugins/telescope")
 require("plugins/cmp")
-
-local ok_autopairs, autopairs = pcall(require, "nvim-autopairs")
-if ok_autopairs then
-	autopairs.setup {}
-	local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-	local cmp = require('cmp')
-	cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
-end
+require("plugins/autopairs")
 require("neogit").setup()
 
 -- Configure Nvim LSP Intaller
