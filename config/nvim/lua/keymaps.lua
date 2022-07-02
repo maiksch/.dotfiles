@@ -9,11 +9,29 @@ function bind(op, outer_opts)
 	end
 end
 
-nmap = bind("n", { noremap = false })
-nnoremap = bind("n")
-vnoremap = bind("v")
-xnoremap = bind("x")
-inoremap = bind("i")
+local nnoremap = bind("n")
+local vnoremap = bind("v")
+local xnoremap = bind("x")
+local inoremap = bind("i")
+
+-- Indenting with tab and shift-tab 
+xnoremap("<Tab>", ">gv")
+xnoremap("<S-Tab>", "<gv")
+
+-- Move text up and down
+nnoremap("<A-j>", "<Esc>:m .+1<CR>==")
+nnoremap("<A-k>", "<Esc>:m .-2<CR>==")
+vnoremap("<A-j>", ":m .+1<CR>==")
+vnoremap("<A-k>", ":m .-2<CR>==")
+xnoremap("<A-j>", ":m '>+1<CR>gv-gv")
+xnoremap("<A-k>", ":m '<-2<CR>gv-gv")
+
+-- Keep yanked text when pasting over visual selection
+vnoremap("p", "\"_dP")
+
+-- Neogit
+nnoremap("<leader>git", require("neogit").open)
+vim.api.nvim_create_user_command("G", require("neogit").open, {})
 
 -- Telescope
 nnoremap("<leader>pf", function() 
@@ -25,6 +43,8 @@ nnoremap("<leader>pf", function()
 		".git"
 	}})
 end)
+--nnoremap("<leader>pw", 
+nnoremap("<leader>pb", require("telescope.builtin").git_branches)
 nnoremap("<C-p>", require("telescope.builtin").git_files)
 nnoremap("<leader>ps", require("telescope.builtin").live_grep)
 

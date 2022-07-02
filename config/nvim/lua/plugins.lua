@@ -1,81 +1,55 @@
 require("packer").startup(function()
-  -- Packer can manage itself
-  use("wbthomason/packer.nvim")
+	-- Packer can manage itself
+	use("wbthomason/packer.nvim")
 
-  -- Themes
-  use("folke/tokyonight.nvim")
-  use("andersevenrud/nordic.nvim")
+	-- Essentials
+	use({
+		"nvim-lua/plenary.nvim",
+		"williamboman/nvim-lsp-installer",
+		"neovim/nvim-lspconfig",
+		"nvim-telescope/telescope.nvim",
+		{ "nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" } },
+	})
 
-  --  LSP
-  use({
-  	"williamboman/nvim-lsp-installer",
-  	"neovim/nvim-lspconfig",
-  })
+	-- Themes
+	use("folke/tokyonight.nvim")
+	use("andersevenrud/nordic.nvim")
+	use("phanviet/vim-monokai-pro")
 
-  -- Autocompletion
-  use({
-	"hrsh7th/cmp-nvim-lsp",
-	"hrsh7th/cmp-buffer",
-	"hrsh7th/cmp-path",
-	"hrsh7th/cmp-cmdline",
-	"hrsh7th/nvim-cmp",
-	"L3MON4D3/LuaSnip",
-	"saadparwaiz1/cmp_luasnip",
-  })
+	-- Autocompletion
+	use({
+		"hrsh7th/nvim-cmp", -- completions
+		"hrsh7th/cmp-buffer", -- buffer completions
+		"hrsh7th/cmp-path", -- path completios
+		"hrsh7th/cmp-cmdline", -- cmdline completions
+		"L3MON4D3/LuaSnip", -- snippets
+		"saadparwaiz1/cmp_luasnip", -- snippet completion
+		"hrsh7th/cmp-nvim-lsp", -- lsp completion		-- lsp completion
+		"hrsh7th/cmp-nvim-lua", -- lua config completion
+	})
 
-  use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
+	-- Random stuff
+	use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
+	use("numToStr/Comment.nvim") -- Easily comment stuff
+	use("TimUntersberger/neogit") -- Git
+	use("p00f/nvim-ts-rainbow") -- Rainbow brackets
 
-  --  Telescope
-  use({
-  	"nvim-telescope/telescope.nvim",
-	requires = { {"nvim-lua/plenary.nvim"} }
-  })
 end)
 
--- Configure colorscheme
-require("nordic").colorscheme({
-    underline_option = "none",
-    italic = true,
-    italic_comments = false,
-    minimal_mode = false,
-    alternate_backgrounds = true 
-})
+require("plugins/treesitter")
+require("plugins/telescope")
+require("plugins/cmp")
+
+local ok_autopairs, autopairs = pcall(require, "nvim-autopairs")
+if ok_autopairs then
+	autopairs.setup {}
+	local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+	local cmp = require('cmp')
+	cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+end
+require("neogit").setup()
 
 -- Configure Nvim LSP Intaller
-require("nvim-lsp-installer").setup{
-	automatic_installation = true	
+require("nvim-lsp-installer").setup {
+	automatic_installation = true
 }
-
--- Configure Syntax Hightlighting
-require("nvim-treesitter.configs").setup({
-	ensure_insatlled = "maintainted",
-	sync_install = false,
-	additional_vim_regex_highlighting = false,
-	ignore_install = { },
-	highlight = {
-		enable = true,
-		diable = { },
-	},
-})
-
--- Configure CMP (autocompletion)
-local cmp = require("cmp")
-cmp.setup({
-    snippet = {
-      expand = function(args)
-        require("luasnip").lsp_expand(args.body)
-      end,
-    },
-    mapping = cmp.mapping.preset.insert({
-      ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-e>"] = cmp.mapping.abort(),
-      ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = cmp.config.sources({
-      { name = "nvim_lsp" },
-      { name = "luasnip" },
-      { name = "buffer" },
-    })
-  })
