@@ -1,3 +1,5 @@
+local M = {}
+
 function bind(op, outer_opts)
 	outer_opts = outer_opts or { noremap = true }
 	return function(lhs, rhs, opts)
@@ -14,7 +16,7 @@ local vnoremap = bind("v")
 local xnoremap = bind("x")
 local inoremap = bind("i")
 
--- Indenting with tab and shift-tab 
+-- Indenting with tab and shift-tab
 xnoremap("<Tab>", ">gv")
 xnoremap("<S-Tab>", "<gv")
 
@@ -27,26 +29,36 @@ xnoremap("<A-j>", ":m '>+1<CR>gv-gv")
 xnoremap("<A-k>", ":m '<-2<CR>gv-gv")
 
 -- Keep yanked text when pasting over visual selection
-vnoremap("p", "\"_dP")
+--vnoremap("p", "\"_dP")
 
 -- Neogit
 nnoremap("<leader>git", require("neogit").open)
 vim.api.nvim_create_user_command("G", require("neogit").open, {})
 
 -- Telescope
-nnoremap("<leader>pf", function() 
+nnoremap("<leader>pf", function()
 	require("telescope.builtin").find_files({ hidden = true, file_ignore_patterns = {
 		".elixir_ls",
 		"deps",
 		"_build",
 		"node_modules",
 		".git"
-	}})
+	} })
 end)
---nnoremap("<leader>pw", 
 nnoremap("<leader>pb", require("telescope.builtin").git_branches)
 nnoremap("<C-p>", require("telescope.builtin").git_files)
 nnoremap("<leader>ps", require("telescope.builtin").live_grep)
 
--- Custom
-nnoremap("<leader>c", "<cmd>!xclip -selection clipboard -i %<CR>") -- Write content of current file into clipboard
+-- Comment
+nnoremap("<leader>c", require("Comment.api").toggle_current_linewise)
+vnoremap("<leader>c", function() require("Comment.api").toggle_linewise_op(vim.fn.visualmode()) end)
+xnoremap("<leader>c", function() require("Comment.api").toggle_linewise_op(vim.fn.visualmode()) end)
+
+-- Nvim Tree
+nnoremap("<leader>e", ":NvimTreeToggle<CR>")
+
+M.nnoremap = nnoremap
+M.inoremap = inoremap
+M.vnoremap = vnoremap
+
+return M

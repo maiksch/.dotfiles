@@ -1,23 +1,39 @@
-require("packer").startup(function()
+local ok, packer = pcall(require, "packer")
+if not ok then
+	return
+end
+
+-- Have packer use a popup window
+packer.init {
+	display = {
+		open_fn = function()
+			return require("packer.util").float { border = "rounded" }
+		end,
+	},
+}
+
+packer.startup(function(use)
 	-- Packer can manage itself
 	use("wbthomason/packer.nvim")
 
 	-- Essentials
-	use({
+	use {
 		"nvim-lua/plenary.nvim",
 		"williamboman/nvim-lsp-installer",
 		"neovim/nvim-lspconfig",
 		"nvim-telescope/telescope.nvim",
 		{ "nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" } },
-	})
+	}
 
 	-- Themes
-	use("folke/tokyonight.nvim")
-	use("andersevenrud/nordic.nvim")
-	use("phanviet/vim-monokai-pro")
+	use {
+		"folke/tokyonight.nvim",
+		"andersevenrud/nordic.nvim",
+		"phanviet/vim-monokai-pro",
+	}
 
 	-- Autocompletion
-	use({
+	use {
 		"hrsh7th/nvim-cmp", -- completions
 		"hrsh7th/cmp-buffer", -- buffer completions
 		"hrsh7th/cmp-path", -- path completios
@@ -26,23 +42,26 @@ require("packer").startup(function()
 		"saadparwaiz1/cmp_luasnip", -- snippet completion
 		"hrsh7th/cmp-nvim-lsp", -- lsp completion		-- lsp completion
 		"hrsh7th/cmp-nvim-lua", -- lua config completion
-	})
+	}
 
 	-- Random stuff
-	use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
-	use("numToStr/Comment.nvim") -- Easily comment stuff
-	use("TimUntersberger/neogit") -- Git
-	use("p00f/nvim-ts-rainbow") -- Rainbow brackets
-
+	use {
+		"windwp/nvim-autopairs", -- Autopairs, integrates with both cmp and treesitter
+		"numToStr/Comment.nvim", -- Easily comment stuff
+		"TimUntersberger/neogit", -- Git
+		"lewis6991/gitsigns.nvim", -- Git signs
+		"p00f/nvim-ts-rainbow", -- Rainbow brackets
+		"kyazdani42/nvim-web-devicons", -- Icons for filetree
+		"kyazdani42/nvim-tree.lua", -- file tree
+	}
 end)
 
 require("plugins/treesitter")
 require("plugins/telescope")
 require("plugins/cmp")
 require("plugins/autopairs")
+require("plugins/gitsigns")
 require("neogit").setup()
-
--- Configure Nvim LSP Intaller
-require("nvim-lsp-installer").setup {
-	automatic_installation = true
-}
+require("Comment").setup()
+require("nvim-lsp-installer").setup({ automatic_installation = true })
+require("nvim-tree").setup()
