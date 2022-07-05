@@ -28,6 +28,10 @@ vnoremap("<A-k>", ":m .-2<CR>==")
 xnoremap("<A-j>", ":m '>+1<CR>gv-gv")
 xnoremap("<A-k>", ":m '<-2<CR>gv-gv")
 
+-- Move to buffer
+nnoremap("<leader><Right>", ":bnext<CR>")
+nnoremap("<leader><Left>", ":bprevious<CR>")
+
 -- Keep yanked text when pasting over visual selection
 --vnoremap("p", "\"_dP")
 
@@ -50,9 +54,8 @@ nnoremap("<C-p>", require("telescope.builtin").git_files)
 nnoremap("<leader>ps", require("telescope.builtin").live_grep)
 
 -- Comment
-nnoremap("<leader>c", require("Comment.api").toggle_current_linewise)
-vnoremap("<leader>c", function() require("Comment.api").toggle_linewise_op(vim.fn.visualmode()) end)
-xnoremap("<leader>c", function() require("Comment.api").toggle_linewise_op(vim.fn.visualmode()) end)
+nnoremap("<C-_>" --[[ CTRL-7 --]], require("Comment.api").toggle_current_linewise)
+vnoremap("<C-_>" --[[ CTRL-7 --]], "<Plug>(comment_toggle_linewise_visual)gv")
 
 -- Nvim Tree
 nnoremap("<leader>e", ":NvimTreeToggle<CR>")
