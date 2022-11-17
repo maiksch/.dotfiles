@@ -1,13 +1,3 @@
-local ok, lsp = pcall(require, "lspconfig")
-if not ok then
-	return
-end
-
-local lsp_installer_ok, lsp_installer = pcall(require, "nvim-lsp-installer")
-if not lsp_installer_ok then
-	return
-end
-
 local function highlight_document(client)
 	-- Set autocommands conditional on server_capabilities
 	local status_ok, illuminate = pcall(require, "illuminate")
@@ -15,7 +5,6 @@ local function highlight_document(client)
 		return
 	end
 	illuminate.on_attach(client)
-	-- end
 end
 
 local function keymaps(client, bufnr)
@@ -42,54 +31,52 @@ local on_attach = function(client, bufnr)
 	highlight_document(client)
 end
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local mason_lspconfig_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
+if not mason_lspconfig_ok then
+	return
+end
 
-local servers = {
-	"angularls",
-	"cssls",
-	"svelte",
-	"html",
-	"gopls",
-	"marksman",
-	"ansiblels",
-	"csharp_ls",
-	"tailwindcss",
-	"tsserver",
-	"sqlls",
-	"elixirls",
-	"jedi_language_server",
-	"sumneko_lua",
-	"prismals",
+mason_lspconfig.setup {
+	automatic_installation = true,
 }
 
-local custom_options = {
-	sumneko_lua = {
-		settings = {
-			Lua = {
-				diagnostics = {
-					globals = { "vim" },
-				},
+local ok, lsp = pcall(require, "lspconfig")
+if not ok then
+	return
+end
+
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local function get_options(options)
+	return vim.tbl_deep_extend("force", {
+		on_attach = on_attach,
+		capabilites = capabilities,
+	}, options or {})
+end
+
+local servers = {
+	-- "angular-language-server",
+	-- "css-lsp",
+	-- "tailwindcss-language-server",
+	-- "svelte-language-server",
+	-- "html-lsp",
+	-- "gopls",
+	-- "marksman",
+	-- "ansible-language-server",
+	-- "csharp-language-server",
+	-- "typescript-language-server",
+	-- "sqlls",
+	-- "jedi-language-server",
+	-- "rustfmt",
+}
+
+lsp.rust_analyzer.setup(get_options())
+
+lsp.sumneko_lua.setup(get_options {
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = { "vim" },
 			},
 		},
 	},
-	elixirls = {
-		cmd = { "/home/maik/.local/share/nvim/lsp_servers/elixirls/elixir-ls/language_server.sh" },
-	},
-}
-
-local default_options = {
-	on_attach = on_attach,
-	capabilites = capabilities,
-}
-
-lsp_installer.setup {
-	ensure_installed = servers
-}
-
-for _, server in pairs(servers) do
-	local options = default_options
-	if custom_options[server] then
-		options = vim.tbl_deep_extend("force", custom_options[server], options)
-	end
-	lsp[server].setup(options)
-end
+})

@@ -32,33 +32,41 @@ xnoremap("<A-k>", ":m '<-2<CR>gv-gv")
 nnoremap("<leader><Right>", ":bnext<CR>")
 nnoremap("<leader><Left>", ":bprevious<CR>")
 
+-- nnoremap("<leader> h", )
+
 -- Keep yanked text when pasting over visual selection
 --vnoremap("p", "\"_dP")
 
 -- Neogit
-nnoremap("<leader>git", require("neogit").open)
-vim.api.nvim_create_user_command("G", require("neogit").open, {})
+local ok, neogit = pcall(require, "neogit")
+if ok then
+	nnoremap("<leader>git", neogit.open)
+	vim.api.nvim_create_user_command("G", neogit.open, {})
+end
 
 -- Telescope
-nnoremap("<leader>pf", function()
-	require("telescope.builtin").find_files({ hidden = true, file_ignore_patterns = {
-		".elixir_ls",
-		"deps",
-		"_build",
-		"node_modules",
-		".git"
-	} })
-end)
-nnoremap("<leader>pb", require("telescope.builtin").git_branches)
-nnoremap("<C-p>", require("telescope.builtin").git_files)
-nnoremap("<leader>ps", require("telescope.builtin").live_grep)
+local ok, telescope = pcall(require, "telescope.builtin")
+if ok then
+	nnoremap("<leader>pf", function()
+		telescope.find_files({ hidden = true, file_ignore_patterns = {
+			".elixir_ls",
+			"deps",
+			"_build",
+			"node_modules",
+			".git"
+		}})
+	end)
+	nnoremap("<leader>pb", telescope.git_branches)
+	nnoremap("<C-p>", telescope.git_files)
+	nnoremap("<leader>ps", telescope.live_grep)
+end
 
 -- Comment
-nnoremap("<C-_>" --[[ CTRL-7 --]], require("Comment.api").toggle_current_linewise)
-vnoremap("<C-_>" --[[ CTRL-7 --]], "<Plug>(comment_toggle_linewise_visual)gv")
-
--- Nvim Tree
-nnoremap("<leader>e", ":NvimTreeToggle<CR>")
+local ok, comment = pcall(require, "Comment")
+if ok then
+	nnoremap("<C-_>" --[[ CTRL-7 --]], require("Comment.api").toggle.linewise.current)
+	vnoremap("<C-_>" --[[ CTRL-7 --]], "<Plug>(comment_toggle_linewise_visual)gv")
+end
 
 M.nnoremap = nnoremap
 M.inoremap = inoremap

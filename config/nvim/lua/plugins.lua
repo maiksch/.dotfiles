@@ -19,8 +19,10 @@ packer.startup(function(use)
 	-- Essentials
 	use {
 		"nvim-lua/plenary.nvim",
-		"williamboman/nvim-lsp-installer",
 		"neovim/nvim-lspconfig",
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		"nvim-telescope/telescope.nvim",
 		{ "nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" } },
 	}
@@ -30,7 +32,9 @@ packer.startup(function(use)
 		"folke/tokyonight.nvim",
 		"andersevenrud/nordic.nvim",
 		"phanviet/vim-monokai-pro",
+		"rebelot/kanagawa.nvim",
 	}
+
 
 	-- Autocompletion
 	use {
@@ -40,7 +44,7 @@ packer.startup(function(use)
 		"hrsh7th/cmp-cmdline", -- cmdline completions
 		"L3MON4D3/LuaSnip", -- snippets
 		"saadparwaiz1/cmp_luasnip", -- snippet completion
-		"hrsh7th/cmp-nvim-lsp", -- lsp completion		-- lsp completion
+		"hrsh7th/cmp-nvim-lsp", -- lsp completion
 		"hrsh7th/cmp-nvim-lua", -- lua config completion
 	}
 
@@ -51,8 +55,9 @@ packer.startup(function(use)
 		"TimUntersberger/neogit", -- Git
 		"lewis6991/gitsigns.nvim", -- Git signs
 		"p00f/nvim-ts-rainbow", -- Rainbow brackets
-		"kyazdani42/nvim-web-devicons", -- Icons for filetree
-		"kyazdani42/nvim-tree.lua", -- file tree
+		"nvim-treesitter/nvim-treesitter-angular", -- Angular specific treesitter
+		"lukas-reineke/indent-blankline.nvim", -- Show indent line	
+		"RRethy/vim-illuminate", -- highlight other uses of word
 	}
 end)
 
@@ -63,5 +68,7 @@ require("plugins/autopairs")
 require("plugins/gitsigns")
 require("neogit").setup()
 require("Comment").setup()
-require("nvim-lsp-installer").setup({ automatic_installation = true })
-require("nvim-tree").setup()
+require("mason").setup()
+require("mason-lspconfig").setup()
+require("indent_blankline").setup()
+require("illuminate").configure()
