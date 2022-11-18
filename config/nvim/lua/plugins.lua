@@ -55,7 +55,7 @@ packer.startup(function(use)
 		"TimUntersberger/neogit", -- Git
 		"lewis6991/gitsigns.nvim", -- Git signs
 		"p00f/nvim-ts-rainbow", -- Rainbow brackets
-		"nvim-treesitter/nvim-treesitter-angular", -- Angular specific treesitter
+		{ "nvim-treesitter/nvim-treesitter-angular", requires = { "nvim-treesitter/nvim-treesitter" } }, -- Angular specific treesitter
 		"lukas-reineke/indent-blankline.nvim", -- Show indent line	
 		"RRethy/vim-illuminate", -- highlight other uses of word
 	}
