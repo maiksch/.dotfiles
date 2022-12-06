@@ -13,8 +13,13 @@ end
 
 local nnoremap = bind("n")
 local vnoremap = bind("v")
-local xnoremap = bind("x")
 local inoremap = bind("i")
+local xnoremap = bind("x")
+
+nnoremap("<C-u>", "<C-u>zz")
+nnoremap("<C-d>", "<C-d>zz")
+nnoremap("n", "nzzzv")
+nnoremap("N", "Nzzzv")
 
 -- Indenting with tab and shift-tab
 xnoremap("<Tab>", ">gv")
