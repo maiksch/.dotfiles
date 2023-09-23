@@ -25,6 +25,9 @@ packer.startup(function(use)
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		"nvim-telescope/telescope.nvim",
 		{ "nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" } },
+		"mfussenegger/nvim-dap", -- debugging with DAP
+		"rcarriga/nvim-dap-ui", -- debuggin UI for DAP, 
+		"ThePrimeagen/harpoon", -- harpoon
 	}
 
 	-- Themes
@@ -61,12 +64,7 @@ packer.startup(function(use)
 	}
 end)
 
-require("plugins/treesitter")
-require("plugins/telescope")
-require("plugins/cmp")
-require("plugins/autopairs")
-require("plugins/gitsigns")
-require("neogit").setup()
+-- require("neogit").setup()
 require("Comment").setup()
 require("mason").setup()
 require("mason-lspconfig").setup()

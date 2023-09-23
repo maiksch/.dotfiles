@@ -37,34 +37,15 @@ xnoremap("<A-k>", ":m '<-2<CR>gv-gv")
 nnoremap("<leader><Right>", ":bnext<CR>")
 nnoremap("<leader><Left>", ":bprevious<CR>")
 
--- nnoremap("<leader> h", )
-
 -- Keep yanked text when pasting over visual selection
 --vnoremap("p", "\"_dP")
 
 -- Neogit
-local ok, neogit = pcall(require, "neogit")
-if ok then
-	nnoremap("<leader>git", neogit.open)
-	vim.api.nvim_create_user_command("G", neogit.open, {})
-end
-
--- Telescope
-local ok, telescope = pcall(require, "telescope.builtin")
-if ok then
-	nnoremap("<leader>pf", function()
-		telescope.find_files({ hidden = true, file_ignore_patterns = {
-			".elixir_ls",
-			"deps",
-			"_build",
-			"node_modules",
-			".git"
-		}})
-	end)
-	nnoremap("<leader>pb", telescope.git_branches)
-	nnoremap("<C-p>", telescope.git_files)
-	nnoremap("<leader>ps", telescope.live_grep)
-end
+-- local ok, neogit = pcall(require, "neogit")
+-- if ok then
+-- 	nnoremap("<leader>git", neogit.open)
+-- 	vim.api.nvim_create_user_command("G", neogit.open, {})
+-- end
 
 -- Comment
 local ok, comment = pcall(require, "Comment")

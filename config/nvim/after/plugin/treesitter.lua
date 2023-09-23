@@ -4,7 +4,7 @@ if not ok then
 end
 
 treesitter.setup({
-	ensure_installed = { "c_sharp", "rust", "toml", "typescript", "javascript", "css", "html", "json", "sql" },
+	ensure_installed = { "c_sharp", "rust", "toml", "typescript", "javascript", "css", "html", "json", "sql", "go" },
 	sync_install = false,
 	auto_install = true,
 	ignore_install = {},
