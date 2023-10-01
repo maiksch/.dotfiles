@@ -1,10 +1,7 @@
 local ok, dap = pcall(require, "dap")
 if not ok then
-	print("NOT DAP")
 	return
 end
-
-print("DAP")
 
 -- Keymaps
 vim.keymap.set("n", "<F5>", function() dap.continue() end)
@@ -29,9 +26,14 @@ dap.configurations.go = {
 		name = "Debug",
 		request = "launch",
 		program = "${file}"
-		-- mode = "debug",
-		-- program = "/home/personal/fimanto/cmd/fimanto-app/",
 	},
+	{
+		type = "go",
+		name = "Debug Test",
+		request = "launch",
+		program = "${file}",
+		mode = "test",
+	}
 }
 
 -- UI

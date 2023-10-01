@@ -25,6 +25,7 @@ packer.startup(function(use)
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		"nvim-telescope/telescope.nvim",
 		{ "nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" } },
+		"mhartington/formatter.nvim", -- formatter
 		"mfussenegger/nvim-dap", -- debugging with DAP
 		"rcarriga/nvim-dap-ui", -- debuggin UI for DAP, 
 		"ThePrimeagen/harpoon", -- harpoon
@@ -68,5 +69,4 @@ end)
 require("Comment").setup()
 require("mason").setup()
 require("mason-lspconfig").setup()
-require("indent_blankline").setup()
 require("illuminate").configure()
