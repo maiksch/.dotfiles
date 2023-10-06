@@ -6,7 +6,7 @@ end
 -- Keymaps
 
 local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>pf", function()
+vim.keymap.set("n", "<C-p>", function()
 	builtin.find_files({ hidden = true, file_ignore_patterns = {
 		".elixir_ls",
 		"deps",
@@ -16,7 +16,7 @@ vim.keymap.set("n", "<leader>pf", function()
 	}})
 end)
 vim.keymap.set("n", "<leader>pb", builtin.git_branches)
-vim.keymap.set("n", "<C-p>", builtin.git_files)
+vim.keymap.set("n", "<leader>pf", builtin.git_files)
 vim.keymap.set("n", "<leader>ps", builtin.live_grep)
 
 -- Setup

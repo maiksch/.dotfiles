@@ -29,6 +29,7 @@ packer.startup(function(use)
 		"mfussenegger/nvim-dap", -- debugging with DAP
 		"rcarriga/nvim-dap-ui", -- debuggin UI for DAP, 
 		"ThePrimeagen/harpoon", -- harpoon
+		"nvim-tree/nvim-tree.lua", -- file tree
 	}
 
 	-- Themes
@@ -59,13 +60,11 @@ packer.startup(function(use)
 		"TimUntersberger/neogit", -- Git
 		"lewis6991/gitsigns.nvim", -- Git signs
 		"p00f/nvim-ts-rainbow", -- Rainbow brackets
-		{ "nvim-treesitter/nvim-treesitter-angular", requires = { "nvim-treesitter/nvim-treesitter" } }, -- Angular specific treesitter
 		"lukas-reineke/indent-blankline.nvim", -- Show indent line	
 		"RRethy/vim-illuminate", -- highlight other uses of word
 	}
 end)
 
--- require("neogit").setup()
 require("Comment").setup()
 require("mason").setup()
 require("mason-lspconfig").setup()
