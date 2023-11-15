@@ -12,12 +12,6 @@ local function tokyonight()
 	vim.cmd("colorscheme tokyonight")
 end
 
-local function kanagawa()
-	require("kanagawa").setup()
-	vim.cmd("colorscheme kanagawa")
-end
-
--- kanagawa()
 tokyonight()
 
 hi("LineNr", { fg = "#5eacd3" })
