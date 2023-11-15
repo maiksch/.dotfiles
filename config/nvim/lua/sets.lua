@@ -7,7 +7,6 @@ local sets = {
 	nu = true,          -- Zeigt ausserdem die aktuelle Zeilennummer
 	hidden = true,      -- Buffer bleiben im Hintergrund offen
 	errorbells = false, -- Keine Fehlersounds
-	wrap = false,       -- Nicht visuell einrücken
 	tabstop = 4,        -- Tabs haben eine Länge von 4 Zeichen
 	shiftwidth = 4,
 	showtabline = 0,    -- Dateiname in der oberen linken Ecke (0 = ausblenden)
@@ -25,8 +24,10 @@ local sets = {
 	termguicolors = true,
 	background = "dark",
 	updatetime = 300, -- faster completion (4000ms default)
-	--	showmode = false,
 	cursorline = true,
+
+	-- wrap = false,       -- Nicht visuell einrücken
+	-- linebreak = true,
 }
 
 for k, v in pairs(sets) do

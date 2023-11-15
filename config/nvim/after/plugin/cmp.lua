@@ -1,16 +1,11 @@
-local cmp_ok, cmp = pcall(require, "cmp")
-if not cmp_ok then
-	return
+local has_words_before = function()
+	unpack = unpack or table.unpack
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local luasnip_ok, luasnip = pcall(require, "luasnip")
-if not luasnip_ok then
-	return
-end
-
-local check_backspace = function()
-	local col = vim.fn.col "." - 1
-	return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
+local feedkey = function(key, mode)
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
 --   פּ ﯟ   some other good icons
@@ -42,77 +37,98 @@ local kind_icons = {
 	TypeParameter = "",
 }
 
+local cmp = require("cmp")
+
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 cmp.setup {
 	snippet = {
 		expand = function(args)
-			luasnip.lsp_expand(args.body)
+			vim.fn['vsnip#anonymous'](args.body)
 		end,
 	},
 	mapping = {
 		["<C-b>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif luasnip.expandable() then
-				luasnip.expand()
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
-			elseif check_backspace() then
-				fallback()
-			else
-				fallback()
-			end
-		end, {
-			"i",
-			"s",
-		}),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
-			else
-				fallback()
-			end
-		end, {
-			"i",
-			"s",
-		}),
 		["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-j>"] = cmp.mapping.select_next_item(),
 		["<C-k>"] = cmp.mapping.select_prev_item(),
 		["<C-e>"] = cmp.mapping.abort(),
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
+			elseif vim.fn["vsnip#available"](1) == 1 then
+				feedkey("<Plug>(vsnip-expand-or-jump)", "")
+			elseif has_words_before() then
+				cmp.complete()
+			else
+				fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+			end
+		end, { "i", "s" }),
+
+		["<S-Tab>"] = cmp.mapping(function()
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+				feedkey("<Plug>(vsnip-jump-prev)", "")
+			end
+		end, { "i", "s" }),
 	},
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
 			-- Kind icons
 			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
 				nvim_lua = "[LSP]",
-				luasnip = "[Snippet]",
-				buffer = "[Buffer]",
+				vsnip = "[Snippet]",
 				path = "[Path]",
+				buffer = "[Buffer]",
 			})[entry.source.name]
 			return vim_item
 		end,
 	},
 	sources = {
 		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
-		--{ name = "buffer" },
 		{ name = "path" },
-		{ name = "nvim_lua" },
+		{ name = "nvim_lsp_signature_help" },
+		{ name = "vsnip" },
+		-- { name = "nvim_lua" },
+		-- { name = "buffer" },
 	},
-	window = {
-		documentation = {
-			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-		},
+	sorting = {
+		comparators = {
+			cmp.config.compare.offset,
+			cmp.config.compare.exact,
+			cmp.config.compare.score,
 
+			-- copied from cmp-under, but I don't think I need the plugin for this.
+			-- I might add some more of my own.
+			function(entry1, entry2)
+				local _, entry1_under = entry1.completion_item.label:find "^_+"
+				local _, entry2_under = entry2.completion_item.label:find "^_+"
+				entry1_under = entry1_under or 0
+				entry2_under = entry2_under or 0
+				if entry1_under > entry2_under then
+					return false
+				elseif entry1_under < entry2_under then
+					return true
+				end
+			end,
+
+			cmp.config.compare.kind,
+			cmp.config.compare.sort_text,
+			cmp.config.compare.length,
+			cmp.config.compare.order,
+		}
+	},
+
+	experimental = {
+		-- I like the new menu better! Nice work hrsh7th
+		native_menu = false,
+
+		-- Let's play with this for a day or two
+		ghost_text = false,
 	},
 }

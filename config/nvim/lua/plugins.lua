@@ -29,6 +29,9 @@ packer.startup(function(use)
 		"rcarriga/nvim-dap-ui", -- debuggin UI for DAP,
 		"ThePrimeagen/harpoon", -- harpoon
 		"nvim-tree/nvim-tree.lua", -- file tree
+		{ "mbbill/undotree", config = function()
+			vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+		end },
 	}
 
 	-- Themes
@@ -39,15 +42,12 @@ packer.startup(function(use)
 		"rebelot/kanagawa.nvim",
 	}
 
-
 	-- Autocompletion
 	use {
-		"hrsh7th/nvim-cmp", -- completions
-		"hrsh7th/cmp-buffer", -- buffer completions
-		"hrsh7th/cmp-path", -- path completios
-		"hrsh7th/cmp-cmdline", -- cmdline completions
-		-- "L3MON4D3/LuaSnip",              -- snippets
-		-- "saadparwaiz1/cmp_luasnip",      -- snippet completion
+		"hrsh7th/nvim-cmp",              -- completions
+		"hrsh7th/cmp-buffer",            -- buffer completions
+		"hrsh7th/cmp-path",              -- path completios
+		"hrsh7th/cmp-cmdline",           -- cmdline completions
 		"hrsh7th/vim-vsnip",             -- snippets
 		"hrsh7th/vim-vsnip-integ",
 		"hrsh7th/cmp-nvim-lsp",          -- lsp completion
@@ -65,6 +65,15 @@ packer.startup(function(use)
 		"p00f/nvim-ts-rainbow",          -- Rainbow brackets
 		"lukas-reineke/indent-blankline.nvim", -- Show indent line	
 		"RRethy/vim-illuminate",         -- highlight other uses of word
+		"folke/trouble.nvim",            -- Quickfix
+		{
+			"folke/which-key.nvim",
+			config = function()
+				vim.o.timeout = true
+				vim.o.timeoutlen = 300
+				require("which-key").setup()
+			end
+		}, -- show possible keybindings for the command thats being typed
 	}
 end)
 
