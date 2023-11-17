@@ -1,6 +1,9 @@
 return {
 	{
 		"nvim-tree/nvim-tree.lua",
+		keys = {
+			{ "<leader>e", ":NvimTreeToggle<CR>", desc = "NvimTree" },
+		},
 		config = function()
 			require("nvim-tree").setup({
 				view = {
@@ -8,10 +11,11 @@ return {
 					float = {
 						enable = true,
 					},
-				}
+				},
+				update_focused_file = {
+					enable = true,
+				},
 			})
-
-			vim.keymap.set("n", "<leader>e", ":NvimTreeOpen<CR>")
 		end
 	},
 }

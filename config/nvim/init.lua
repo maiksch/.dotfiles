@@ -15,7 +15,6 @@ vim.opt.rtp:prepend(lazypath)
 require("sets")
 require("keymaps")
 require("lazy").setup({
-	"numToStr/Comment.nvim", -- Easily comment stuff
 	"p00f/nvim-ts-rainbow", -- Rainbow brackets
 	{ import = "plugins" }
 })

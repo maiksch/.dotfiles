@@ -38,9 +38,9 @@ return {
 				}
 			})
 		end)
-		vim.keymap.set("n", "<leader>pb", builtin.git_branches)
-		vim.keymap.set("n", "<leader>pf", builtin.git_files)
-		vim.keymap.set("n", "<leader>ps", builtin.live_grep)
-		vim.keymap.set("n", "<leader>dd", "<cmd>Telescope diagnostics<CR>")
+		vim.keymap.set("n", "<leader>pb", builtin.git_branches, { desc = "Telescope: Git Branches" })
+		vim.keymap.set("n", "<leader>pf", builtin.git_files, { desc = "Telescope: Git Files" })
+		vim.keymap.set("n", "<leader>ps", builtin.live_grep, { desc = "Telescope: Grep" })
+		vim.keymap.set("n", "<leader>dd", "<cmd>Telescope diagnostics<CR>", { desc = "Telescope: Diagnostics" })
 	end
 }

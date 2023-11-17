@@ -1,10 +1,9 @@
 return {
 	"TimUntersberger/neogit", -- Git
+	keys = {
+		{ "<leader>g", function() require("neogit").open() end, desc = "Neogit" },
+	},
 	config = function()
-		local neogit = require("neogit")
-
-		neogit.setup()
-
-		vim.keymap.set("n", "<leader>g", neogit.open)
+		require("neogit").setup()
 	end
 }
