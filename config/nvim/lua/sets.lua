@@ -1,7 +1,7 @@
 local sets = {
 	clipboard = "unnamedplus", -- allows neovim to access the system clipboard		
 	mouse = "a",            -- enables the mouse
-	guicursor = "i-ci-ve:hor25",
+	guicursor = "n-v-c:block-Cursor/lCursor,i-ci-ve:hor25-Cursor2/lCursor2",
 	fileencoding = "utf-8",
 	relativenumber = true, -- Relative Zeilennummern vom Cursor
 	nu = true,          -- Zeigt ausserdem die aktuelle Zeilennummer
@@ -16,7 +16,7 @@ local sets = {
 	undofile = true,
 	incsearch = true, -- Während der Suche die Ergebnisse inkrementell highlighten
 	hlsearch = false, -- Entfernt highlighting bei der Suche
-	scrolloff = 8,    -- 8 Zeilen vor Anfang und Ende der Datei scrollen
+	scrolloff = 8, -- 8 Zeilen vor Anfang und Ende der Datei scrollen
 	sidescrolloff = 8,
 	signcolumn = "yes", -- Blende links von den Zeilennummern eine weiter Spalte in
 	colorcolumn = "100", -- Blende eine Spalte bei 100 Zeichen ein

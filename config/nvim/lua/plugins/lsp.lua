@@ -21,7 +21,7 @@ return {
 			vim.keymap.set("n", "<space>.", vim.lsp.buf.code_action, bufopts)
 
 			-- Create a command `:Format` local to the LSP buffer
-			vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+			-- vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, desc = "Format")
 		end
 
 		local lspconfig = require("lspconfig")

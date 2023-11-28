@@ -12,10 +12,18 @@ local function tokyonight()
 	vim.cmd("colorscheme tokyonight")
 end
 
-tokyonight()
+local function kanagawa()
+	require('kanagawa').setup({
+		theme = "dragon",
+		background = {
+			dark = "dragon"
+		}
+		-- transparent = trtrue,ue,
+	})
+	vim.cmd("colorscheme kanagawa")
+end
 
-hi("LineNr", { fg = "#5eacd3" })
-hi("GitSignsAdd", { fg = "green" })
-hi("GitSignsChange", { fg = "yellow" })
--- hi("Normal", { bg = "none" })
--- hi("SignColumn", { bg = "none" })
+local function monokai_pro()
+	require("monokai-pro").setup()
+	vim.cmd([[colorscheme monokai-pro]])
+end

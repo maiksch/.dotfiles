@@ -15,7 +15,12 @@ vim.opt.rtp:prepend(lazypath)
 require("sets")
 require("keymaps")
 require("lazy").setup({
-	"p00f/nvim-ts-rainbow", -- Rainbow brackets
-	{ import = "plugins" }
+	-- "p00f/nvim-ts-rainbow", -- Rainbow brackets
+	-- "hiphish/rainbow-delimiters.nvim",
+	{ import = "plugins" },
+}, {
+	dev = {
+		path = "~/personal"
+	}
 })
 require("theme")
