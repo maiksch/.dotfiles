@@ -39,18 +39,16 @@ return {
 
 		mason.setup()
 
-		mason_lspconfig.setup {
-			ensure_installed = { "gopls", "html" },
-			automatic_installation = true,
+		mason_lspconfig.setup({
 			handlers = {
 				function(server_name)
-					lspconfig[server_name].setup {
+					lspconfig[server_name].setup({
 						on_attach = on_attach,
 						capabilities = capabilities,
-					}
+					})
 				end,
 				lua_ls = function()
-					lspconfig.lua_ls.setup {
+					lspconfig.lua_ls.setup({
 						on_attach = on_attach,
 						capabilites = capabilities,
 						settings = {
@@ -60,15 +58,25 @@ return {
 								},
 							},
 						},
-					}
+					})
 				end,
-			}
-		}
+			},
+		})
 
-		-- need to to this manually, because there is no server mapping in mason_lspconfig yet
-		lspconfig.htmx.setup {
+		lspconfig.tsserver.setup({
 			on_attach = on_attach,
 			capabilites = capabilities,
-		}
-	end
+			init_options = {
+				tsserver = {
+					path = "/Users/mschmaddebeck/.volta/tools/image/packages/typescript/lib/node_modules/typescript/lib",
+				},
+			},
+		})
+
+		-- need to to this manually, because there is no server mapping in mason_lspconfig yet
+		lspconfig.htmx.setup({
+			on_attach = on_attach,
+			capabilites = capabilities,
+		})
+	end,
 }

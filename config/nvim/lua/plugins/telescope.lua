@@ -13,14 +13,23 @@ return {
 					horizontal = {
 						prompt_position = "top",
 						mirror = false,
+						width = 0.9,
 					},
 				},
+				file_ignore_patterns = {
+					"^.git/",
+					"^node_modules/",
+					"node_modules",
+				}
 			},
 			pickers = {
 				find_files = {
 					theme = "dropdown",
-					previewer = true,
+					previewer = false,
 					layout_strategy = "horizontal",
+					layout_config = {
+						width = 0.9,
+					}
 				},
 				git_files = {
 					theme = "dropdown",
@@ -33,10 +42,6 @@ return {
 		vim.keymap.set("n", "<C-p>", function()
 			builtin.find_files({
 				hidden = true,
-				file_ignore_patterns = {
-					"^.git/",
-					"^node_modules/",
-				}
 			})
 		end)
 		vim.keymap.set("n", "<leader>pb", builtin.git_branches, { desc = "Telescope: Git Branches" })

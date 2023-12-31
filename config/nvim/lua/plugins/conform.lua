@@ -11,16 +11,19 @@ return {
 					timeout_ms = 500,
 				})
 			end,
-			desc = "Conform: Format"
-		}
+			desc = "Conform: Format",
+		},
 	},
 	config = function()
 		require("conform").setup({
 			formatters_by_ft = {
 				javascript = { "prettier" },
 				typescript = { "prettier" },
+				typescriptreact = { "prettier" },
 				html = { "prettier" },
-			}
+				json = { "prettier" },
+				lua = { "stylua" },
+			},
 		})
-	end
+	end,
 }

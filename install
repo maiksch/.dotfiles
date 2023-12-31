@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pushd ~/dotfiles
+pushd ~/Projects/dotfiles
 
 # -t defines the target directory, so where the symlinks should be created
 # -DS means, stow should first delete old symlinks and then create new ones from the given stow directory

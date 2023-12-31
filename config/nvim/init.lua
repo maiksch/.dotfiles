@@ -9,7 +9,6 @@ if not vim.loop.fs_stat(lazypath) then
 		lazypath,
 	})
 end
-
 vim.opt.rtp:prepend(lazypath)
 
 require("sets")
@@ -20,7 +19,8 @@ require("lazy").setup({
 	{ import = "plugins" },
 }, {
 	dev = {
-		path = "~/personal"
+		path = "~/Projects",
+		fallback = true,
 	}
 })
 require("theme")

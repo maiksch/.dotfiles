@@ -3,6 +3,7 @@ return {
 	dependencies = { "rcarriga/nvim-dap-ui" },
 	config = function()
 		local dap = require("dap")
+		local utils = require("dap.utils")
 
 		-- Keymaps
 		vim.keymap.set("n", "<F5>", function() dap.continue() end)
@@ -11,7 +12,37 @@ return {
 		vim.keymap.set("n", "<F12>", function() dap.step_out() end)
 		vim.keymap.set("n", "<leader>b", function() dap.toggle_breakpoint() end)
 
-		-- Adapter
+		-- nodejs
+		dap.adapters.node = {
+			id = "node-terminal",
+			type = "server",
+			host = "127.0.0.1",
+			port = "${port}",
+			executable = {
+				command = "js-debug-adapter",
+				args = {"${port}"}
+			}
+		}
+		dap.configurations.typescript = {
+			{
+				type = "node",
+				request = "launch",
+				name = "Launch node",
+				cwd = "${workspaceFolder}",
+				runtimeExecutable = "yarn",
+				runtimeArgs = {"dev"},
+			},
+			{
+				type = "nodejs",
+				request = "attach",
+				name = "Attach",
+				processid = utils.pick_process,
+				cwd = "${workspaceFolder}",
+				sourceMaps = true,
+			}
+		}
+
+		-- golang
 		dap.adapters.go = {
 			type = "server",
 			port = "${port}",
