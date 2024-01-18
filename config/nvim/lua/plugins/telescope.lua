@@ -5,7 +5,7 @@ return {
 		require("telescope").setup({
 			defaults = {
 				prompt_prefix = " ",
-				selection_caret = " ",
+				-- selection_caret = " ",
 				path_display = { "smart" },
 				sorting_strategy = "ascending",
 				layout_strategy = "horizontal",
@@ -20,16 +20,15 @@ return {
 					"^.git/",
 					"^node_modules/",
 					"node_modules",
-				}
+				},
 			},
 			pickers = {
 				find_files = {
 					theme = "dropdown",
 					previewer = false,
-					layout_strategy = "horizontal",
-					layout_config = {
-						width = 0.9,
-					}
+					path_display = {
+						truncate = 1,
+					},
 				},
 				git_files = {
 					theme = "dropdown",
@@ -48,5 +47,5 @@ return {
 		vim.keymap.set("n", "<leader>pf", builtin.git_files, { desc = "Telescope: Git Files" })
 		vim.keymap.set("n", "<leader>ps", builtin.live_grep, { desc = "Telescope: Grep" })
 		vim.keymap.set("n", "<leader>dd", "<cmd>Telescope diagnostics<CR>", { desc = "Telescope: Diagnostics" })
-	end
+	end,
 }

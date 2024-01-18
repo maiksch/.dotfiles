@@ -14,7 +14,8 @@ return {
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
 			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-			vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+			-- vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+			vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, bufopts)
 			vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
 			--vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
 			vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
@@ -66,11 +67,11 @@ return {
 		lspconfig.tsserver.setup({
 			on_attach = on_attach,
 			capabilites = capabilities,
-			init_options = {
-				tsserver = {
-					path = "/Users/mschmaddebeck/.volta/tools/image/packages/typescript/lib/node_modules/typescript/lib",
-				},
-			},
+			-- init_options = {
+			-- 	tsserver = {
+			-- 		path = "/Users/mschmaddebeck/.volta/tools/image/packages/typescript/lib/node_modules/typescript/lib",
+			-- 	},
+			-- },
 		})
 
 		-- need to to this manually, because there is no server mapping in mason_lspconfig yet
