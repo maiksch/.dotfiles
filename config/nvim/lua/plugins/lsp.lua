@@ -64,6 +64,11 @@ return {
 			},
 		})
 
+		-- lspconfig.templ.setup({
+		-- 	on_attach = on_attach,
+		-- 	capabilites = capabilities,
+		-- })
+
 		lspconfig.tsserver.setup({
 			on_attach = on_attach,
 			capabilites = capabilities,

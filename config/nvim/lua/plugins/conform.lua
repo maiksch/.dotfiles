@@ -21,7 +21,10 @@ return {
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
 				html = { "prettier" },
+				gohtml = { "prettier" },
 				json = { "prettier" },
+				yml = { "prettier" },
+				yaml = { "prettier" },
 				lua = { "stylua" },
 			},
 		})

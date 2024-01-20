@@ -7,7 +7,7 @@ local sets = {
 	nu = true, -- Zeigt ausserdem die aktuelle Zeilennummer
 	hidden = true, -- Buffer bleiben im Hintergrund offen
 	errorbells = false, -- Keine Fehlersounds
-	tabstop = 4, -- Tabs haben eine Länge von 4 Zeichen
+	tabstop = 2, -- Tabs haben eine Länge von 4 Zeichen
 	shiftwidth = 2,
 	showtabline = 0, -- Dateiname in der oberen linken Ecke (0 = ausblenden)
 	smartindent = true, -- Automatisch intelligent einrücken

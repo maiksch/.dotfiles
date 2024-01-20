@@ -1,21 +1,21 @@
 return {
 	{
-		"hrsh7th/nvim-cmp",               -- completions
+		"hrsh7th/nvim-cmp", -- completions
 		dependencies = {
-			"hrsh7th/cmp-buffer",         -- buffer completions
-			"hrsh7th/cmp-path",           -- path completios
-			"hrsh7th/cmp-cmdline",        -- cmdline completions
-			"hrsh7th/vim-vsnip",          -- snippets
+			"hrsh7th/cmp-buffer", -- buffer completions
+			"hrsh7th/cmp-path", -- path completios
+			"hrsh7th/cmp-cmdline", -- cmdline completions
+			"hrsh7th/vim-vsnip", -- snippets
 			"hrsh7th/vim-vsnip-integ",
-			"hrsh7th/cmp-nvim-lua",       -- lua config completion
+			"hrsh7th/cmp-nvim-lua", -- lua config completion
 			"hrsh7th/cmp-nvim-lsp-signature-help", -- show signature help when typing function
 		},
 		config = function()
 			local has_words_before = function()
 				unpack = unpack or table.unpack
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				return col ~= 0 and
-					vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+				return col ~= 0
+					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
 			local feedkey = function(key, mode)
@@ -54,10 +54,10 @@ return {
 			local cmp = require("cmp")
 
 			-- find more here: https://www.nerdfonts.com/cheat-sheet
-			cmp.setup {
+			cmp.setup({
 				snippet = {
 					expand = function(args)
-						vim.fn['vsnip#anonymous'](args.body)
+						vim.fn["vsnip#anonymous"](args.body)
 					end,
 				},
 				mapping = {
@@ -95,7 +95,7 @@ return {
 						vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
 						vim_item.menu = ({
 							nvim_lsp = "[LSP]",
-							nvim_lua = "[LSP]",
+							nvim_lua = "[LUA]",
 							vsnip = "[Snippet]",
 							path = "[Path]",
 							buffer = "[Buffer]",
@@ -113,6 +113,7 @@ return {
 				},
 				sorting = {
 					comparators = {
+						cmp.config.compare.kind,
 						cmp.config.compare.offset,
 						cmp.config.compare.exact,
 						cmp.config.compare.score,
@@ -120,8 +121,8 @@ return {
 						-- copied from cmp-under, but I don't think I need the plugin for this.
 						-- I might add some more of my own.
 						function(entry1, entry2)
-							local _, entry1_under = entry1.completion_item.label:find "^_+"
-							local _, entry2_under = entry2.completion_item.label:find "^_+"
+							local _, entry1_under = entry1.completion_item.label:find("^_+")
+							local _, entry2_under = entry2.completion_item.label:find("^_+")
 							entry1_under = entry1_under or 0
 							entry2_under = entry2_under or 0
 							if entry1_under > entry2_under then
@@ -131,11 +132,10 @@ return {
 							end
 						end,
 
-						cmp.config.compare.kind,
 						cmp.config.compare.sort_text,
 						cmp.config.compare.length,
 						cmp.config.compare.order,
-					}
+					},
 				},
 
 				experimental = {
@@ -145,7 +145,7 @@ return {
 					-- Let's play with this for a day or two
 					ghost_text = false,
 				},
-			}
-		end
-	}
+			})
+		end,
+	},
 }

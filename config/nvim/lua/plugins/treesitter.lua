@@ -20,9 +20,9 @@ return {
 					enable = true,
 				},
 			})
-		end
+		end,
 	},
 	{
 		"nvim-treesitter/playground",
-	}
+	},
 }

@@ -8,6 +8,6 @@ ZSH_THEME="maiksch"
 plugins=(git zsh-autosuggestions)
 
 # Automatically add ssh key to ssh-agent via keychain
-#eval $(keychain --eval --quiet ssh_ed25519)
+eval $(keychain --eval --quiet ssh_ed25519)
 
 source $ZSH/oh-my-zsh.sh
